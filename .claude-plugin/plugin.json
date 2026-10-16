@@ -1,0 +1,13 @@
+{
+  "name": "work-rules",
+  "description": "WAME work rules that do not depend on any task tracker — one source for every plugin that logs time or estimates work, so the rules move with us from Teamwork to Jira, Zoho or the WAME in-house tool. Skill wame-time-logging (rules wame-time-logging-v1): every time entry is whole 5-minute blocks on the 5-minute grid, never a 1–4 minute fragment; tasks shorter than one block are merged into one shared entry on the task with the most work, and its description names every task; a leftover of even 1 minute is logged as 5 minutes; entries never overlap and never end after the current 5-minute block; a start time given by the user is split across the tasks by their estimates. Skill wame-estimate (methodology wame-estimate-v3): one number directly, no speedup factor or buffer, Claude Code writes the code, multiples of 15 minutes, a split above 240 and a cap at 480, anchors from measured sessions. teamwork-task, teamwork-task-test, teamwork-task-analyze, teamwork-tasks-from-desk, teamwork-tasks-from-dnr, teamwork-tasks-from-session and dnr-business depend on it and add only their tracker's API.",
+  "author": {
+    "name": "Stanislav Červeňák",
+    "email": "info@wame.sk"
+  },
+  "version": "1.0.0",
+  "homepage": "https://github.com/wamesk/claude-code-plugin-work-rules",
+  "repository": "https://github.com/wamesk/claude-code-plugin-work-rules",
+  "license": "MIT",
+  "keywords": ["time-logging", "timesheet", "estimate", "teamwork", "jira", "zoho"]
+}
