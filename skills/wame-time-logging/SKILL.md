@@ -109,14 +109,22 @@ tasks in the summary with the reason (`the timesheet is full until 10:15`).
 
   ```
   Spoločný záznam za 3 úlohy (spolu 6 min práce):
-  #45522728 Priradenie úlohy viacerým ľuďom — otestované 4 akceptačné kritériá
-  #45522670 Hashované heslo IMAP — overená akcia Test pripojenia
-  #45522683 Neznámy kód poschodia — overené hlásenie v reporte importu
+  (45522728) Priradenie úlohy viacerým ľuďom — otestované 4 akceptačné kritériá
+  (45522670) Hashované heslo IMAP — overená akcia Test pripojenia
+  (45522683) Neznámy kód poschodia — overené hlásenie v reporte importu
   ```
 
 - **Merged into an earlier entry at the end of the run** (section 3) — append
-  `Patrí sem aj: #<id> <názov> — <čo sa spravilo>` lines to that entry's
+  `Patrí sem aj: (<id>) <názov> — <čo sa spravilo>` lines to that entry's
   description.
+- **No `#` in front of a word or a number — anywhere in the description.** A
+  task id goes in parentheses, `(45522728)`, the same way a commit does,
+  `(commit: c0bda4a)`. Teamwork reads `#45522728` in a new entry as a hashtag:
+  it cuts the id out of the text and creates a global tag with that name, so
+  the entry loses its task reference and the tag list fills with numbers. Any
+  other `#word` does the same (a colour `#22c55e`, an issue `#12`) — write it
+  without the `#`. A consumer removes a `#` that stands right before a letter
+  or a digit from every description before it writes, whoever wrote the text.
 
 ## 5. The user gives a start time
 
@@ -202,10 +210,17 @@ Known adapter — **Teamwork** (`teamwork-task`, `teamwork-task-test`,
 filtered by `assignedToUserIds` (`userId` silently returns the whole company);
 `timeLogged` comes back in UTC, the `time` field of a write is the user's local
 time; create with `POST /projects/api/v3/tasks/{id}/time.json`, edit with
-`PATCH /projects/api/v3/time/{id}.json`.
+`PATCH /projects/api/v3/time/{id}.json`. A `POST` turns every `#word` of the
+description into a global tag and cuts it from the text (section 4); a `PATCH`
+with `"tagIds": []` removes the tags from an entry.
 
 ## Why these rules
 
+- **2026-10-20.** Shared entries named their tasks as `#45504762 …`. Teamwork
+  made a global tag of every such id, cut the id out of the description and
+  left the line without its task — 17 entries in two days, 25 tags named by
+  numbers and one by a colour (`#22c55e`). Task ids now go in parentheses, and
+  no description carries a `#` before a word.
 - **2026-10-16.** QA entries of 2–3 minutes showed up on the timesheet:
   `teamwork-task-test` reused the sub-block rule that `teamwork-task` 1.3.0
   introduced (work below 4 minutes logged as raw minutes, a cut to the exact

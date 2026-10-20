@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-10-20
+
+### Fixed
+
+- **No `#` in a time-entry description** (`wame-time-logging`, section 4). A shared entry
+  named its tasks as `#45504762 …`; Teamwork read every such id as a hashtag, cut it out of
+  the description and created a global tag with that name. Task ids now go in parentheses,
+  `(45504762)`, like commits, and a consumer removes any `#` that stands right before a
+  letter or a digit before it writes. The Teamwork adapter note says how a `PATCH` with
+  `"tagIds": []` clears the tags of an entry.
+
 ## [1.0.0] - 2026-10-16
 
 ### Added
